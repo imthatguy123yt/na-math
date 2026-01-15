@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Super Smash Flash Unblocked on BirdHub</title>
-        <meta name="robots" content="noindex, nofollow">
-        <link rel="shortcut icon" type="image/png" href="super-smash-flash-logo.png">
-        <style>
-            html, body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                overflow: hidden;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="container"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Super Smash Flash</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="shortcut icon" type="image/png" href="super-smash-flash-logo.png">
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #0f172a; }
+        a.back {
+            position: absolute; top: 10px; left: 10px;
+            display: inline-block; padding: 8px 16px;
+            background: #1e293b; color: white; text-decoration: none;
+            border-radius: 5px; z-index: 1000;
+        }
+        a.back:hover { background: #334155; }
+        #container { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
 
-        <script>
-            window.RufflePlayer = window.RufflePlayer || {};
-            window.RufflePlayer.config = {
-                autoplay: "on",
-                contextMenu: false,
-                unmuteOverlay: "hidden",
-            };
-            document.addEventListener("DOMContentLoaded", function () {
-                let swf = 'https://oldflashgames.github.io/games5/super-smash-flash.swf';
-                if (swf) {
-                    let ruffle = window.RufflePlayer.newest();
-                    let player = Object.assign(document.getElementById("container").appendChild(ruffle.createPlayer()), {
-                        style: 'width: 100vw; height: 100vh',
-                    });
-                                      player.load({
-                        url: 'https://oldflashgames.github.io/games5/super-smash-flash.swf'
-                    });  
+<a href="index.html" class="back">⬅ Back to Games</a>
+<div id="container"></div>
 
-                }
-            });
-        </script>
-        <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    </body>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<script>
+window.RufflePlayer = window.RufflePlayer || {};
+window.RufflePlayer.config = {
+    autoplay: "on",
+    contextMenu: false,
+    unmuteOverlay: "hidden",
+};
+document.addEventListener("DOMContentLoaded", function () {
+    const swfUrl = 'https://oldflashgames.github.io/games5/super-smash-flash.swf';
+    let ruffle = window.RufflePlayer.newest();
+    let player = Object.assign(
+        document.getElementById("container").appendChild(ruffle.createPlayer()),
+        { style: 'width: 100vw; height: 100vh' }
+    );
+    player.load({ url: swfUrl });
+});
+</script>
+
+</body>
 </html>

@@ -16,7 +16,7 @@
     .game-img { flex: 5; background-size: cover; background-position: center; }
     .game-title { flex: 1; background: #020617; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; }
 
-    /* Game container */
+    /* Game overlay container */
     #gameContainer {
       display: none; /* hidden initially */
       position: fixed;
@@ -44,53 +44,53 @@
   <div class="grid">
 
     <!-- Row 1 -->
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/super-smash-flash.swf">
+    <button class="game-btn" data-type="ruffle" data-url="https://oldflashgames.github.io/games5/super-smash-flash.swf">
       <div class="game-img" style="background-image: url('game1.png');"></div>
       <div class="game-title">Super Smash Flash</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="iframe" data-url="https://ubg98.github.io/Run3/">
       <div class="game-img" style="background-image: url('game2.png');"></div>
-      <div class="game-title">Game 2</div>
+      <div class="game-title">Run 3</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game3.png');"></div>
       <div class="game-title">Game 3</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game4.png');"></div>
       <div class="game-title">Game 4</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game5.png');"></div>
       <div class="game-title">Game 5</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game6.png');"></div>
       <div class="game-title">Game 6</div>
     </button>
 
     <!-- Row 2 -->
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game7.png');"></div>
       <div class="game-title">Game 7</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game8.png');"></div>
       <div class="game-title">Game 8</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game9.png');"></div>
       <div class="game-title">Game 9</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game10.png');"></div>
       <div class="game-title">Game 10</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game11.png');"></div>
       <div class="game-title">Game 11</div>
     </button>
-    <button class="game-btn" data-swf="#">
+    <button class="game-btn" data-type="#" data-url="#">
       <div class="game-img" style="background-image: url('game12.png');"></div>
       <div class="game-title">Game 12</div>
     </button>
@@ -112,20 +112,34 @@ const overlay = document.getElementById("gameContainer");
 
 // Close the game overlay
 function closeGame() {
-  container.innerHTML = ""; // remove current game
+  container.innerHTML = ""; // remove previous game
   overlay.style.display = "none";
 }
 
 // Set up click for each game button
 document.querySelectorAll(".game-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    const swfUrl = btn.getAttribute("data-swf");
-    if (!swfUrl || swfUrl === "#") return alert("Game not added yet!");
-    container.innerHTML = "";
-    const player = container.appendChild(ruffle.createPlayer());
-    player.style.width = "100%";
-    player.style.height = "100%";
-    player.load({ url: swfUrl });
+    const type = btn.getAttribute("data-type");
+    const url = btn.getAttribute("data-url");
+
+    if (!url || url === "#") return alert("Game not added yet!");
+
+    container.innerHTML = ""; // clear previous content
+
+    if (type === "ruffle") {
+      const player = container.appendChild(ruffle.createPlayer());
+      player.style.width = "100%";
+      player.style.height = "100%";
+      player.load({ url: url });
+    } else if (type === "iframe") {
+      const iframe = document.createElement("iframe");
+      iframe.src = url;
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.border = "none";
+      container.appendChild(iframe);
+    }
+
     overlay.style.display = "block";
   });
 });

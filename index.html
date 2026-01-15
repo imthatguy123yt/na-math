@@ -4,25 +4,36 @@
   <meta charset="UTF-8">
   <title>NA Math</title>
   <style>
-    body { 
-      margin: 0; font-family: Arial, sans-serif; background: #0f172a; color: white; 
-    }
-    header { 
-      background: #020617; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; 
-      position: sticky; top: 0; z-index: 10; 
-    }
-    .grid-container { 
-      height: calc(100vh - 60px); overflow-y: auto; padding: 20px; 
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #0f172a; color: white; }
+    header { background: #020617; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; position: sticky; top: 0; z-index: 10; }
+    .grid-container { height: calc(100vh - 60px); overflow-y: auto; padding: 20px; }
     .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; }
     .game-btn {
-      height: 240px; background: #1e293b; border: none; border-radius: 10px; 
-      padding: 0; cursor: pointer; overflow: hidden; display: flex; flex-direction: column; 
-      text-decoration: none; color: white;
+      height: 240px; background: #1e293b; border: none; border-radius: 10px; padding: 0; cursor: pointer;
+      overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: white;
     }
     .game-btn:hover { background: #334155; }
     .game-img { flex: 5; background-size: cover; background-position: center; }
     .game-title { flex: 1; background: #020617; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; }
+
+    /* Game container */
+    #gameContainer {
+      display: none; /* hidden initially */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #0f172a;
+      z-index: 1000;
+    }
+    #gameContainer a.back {
+      position: absolute; top: 10px; left: 10px;
+      display: inline-block; padding: 8px 16px;
+      background: #1e293b; color: white; text-decoration: none;
+      border-radius: 5px; z-index: 1001;
+    }
+    #gameContainer a.back:hover { background: #334155; }
+    #gamePlayer { width: 100%; height: 100%; }
   </style>
 </head>
 <body>
@@ -33,23 +44,91 @@
   <div class="grid">
 
     <!-- Row 1 -->
-    <a href="game1.html" class="game-btn"><div class="game-img" style="background-image: url('game1.png');"></div><div class="game-title">Game 1</div></a>
-    <a href="game2.html" class="game-btn"><div class="game-img" style="background-image: url('game2.png');"></div><div class="game-title">Game 2</div></a>
-    <a href="game3.html" class="game-btn"><div class="game-img" style="background-image: url('game3.png');"></div><div class="game-title">Game 3</div></a>
-    <a href="game4.html" class="game-btn"><div class="game-img" style="background-image: url('game4.png');"></div><div class="game-title">Game 4</div></a>
-    <a href="game5.html" class="game-btn"><div class="game-img" style="background-image: url('game5.png');"></div><div class="game-title">Game 5</div></a>
-    <a href="game6.html" class="game-btn"><div class="game-img" style="background-image: url('game6.png');"></div><div class="game-title">Game 6</div></a>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/super-smash-flash.swf">
+      <div class="game-img" style="background-image: url('game1.png');"></div>
+      <div class="game-title">Game 1</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game2.swf">
+      <div class="game-img" style="background-image: url('game2.png');"></div>
+      <div class="game-title">Game 2</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game3.swf">
+      <div class="game-img" style="background-image: url('game3.png');"></div>
+      <div class="game-title">Game 3</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game4.swf">
+      <div class="game-img" style="background-image: url('game4.png');"></div>
+      <div class="game-title">Game 4</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game5.swf">
+      <div class="game-img" style="background-image: url('game5.png');"></div>
+      <div class="game-title">Game 5</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game6.swf">
+      <div class="game-img" style="background-image: url('game6.png');"></div>
+      <div class="game-title">Game 6</div>
+    </button>
 
     <!-- Row 2 -->
-    <a href="game7.html" class="game-btn"><div class="game-img" style="background-image: url('game7.png');"></div><div class="game-title">Game 7</div></a>
-    <a href="game8.html" class="game-btn"><div class="game-img" style="background-image: url('game8.png');"></div><div class="game-title">Game 8</div></a>
-    <a href="game9.html" class="game-btn"><div class="game-img" style="background-image: url('game9.png');"></div><div class="game-title">Game 9</div></a>
-    <a href="game10.html" class="game-btn"><div class="game-img" style="background-image: url('game10.png');"></div><div class="game-title">Game 10</div></a>
-    <a href="game11.html" class="game-btn"><div class="game-img" style="background-image: url('game11.png');"></div><div class="game-title">Game 11</div></a>
-    <a href="game12.html" class="game-btn"><div class="game-img" style="background-image: url('game12.png');"></div><div class="game-title">Game 12</div></a>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game7.swf">
+      <div class="game-img" style="background-image: url('game7.png');"></div>
+      <div class="game-title">Game 7</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game8.swf">
+      <div class="game-img" style="background-image: url('game8.png');"></div>
+      <div class="game-title">Game 8</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game9.swf">
+      <div class="game-img" style="background-image: url('game9.png');"></div>
+      <div class="game-title">Game 9</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game10.swf">
+      <div class="game-img" style="background-image: url('game10.png');"></div>
+      <div class="game-title">Game 10</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game11.swf">
+      <div class="game-img" style="background-image: url('game11.png');"></div>
+      <div class="game-title">Game 11</div>
+    </button>
+    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game12.swf">
+      <div class="game-img" style="background-image: url('game12.png');"></div>
+      <div class="game-title">Game 12</div>
+    </button>
 
   </div>
 </div>
+
+<!-- Game container -->
+<div id="gameContainer">
+  <a href="#" class="back" onclick="closeGame()">⬅ Back to Games</a>
+  <div id="gamePlayer"></div>
+</div>
+
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<script>
+const ruffle = window.RufflePlayer.newest();
+const container = document.getElementById("gamePlayer");
+const overlay = document.getElementById("gameContainer");
+
+// Function to close the game
+function closeGame() {
+  container.innerHTML = ""; // remove previous game
+  overlay.style.display = "none";
+}
+
+// Add click listeners to all buttons
+document.querySelectorAll(".game-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const swfUrl = btn.getAttribute("data-swf");
+    container.innerHTML = ""; // clear previous game
+    const player = container.appendChild(ruffle.createPlayer());
+    player.style.width = "100%";
+    player.style.height = "100%";
+    player.load({ url: swfUrl });
+    overlay.style.display = "block";
+  });
+});
+</script>
 
 </body>
 </html>

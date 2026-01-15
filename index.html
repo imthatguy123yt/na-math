@@ -188,7 +188,7 @@
     <!-- Deltarune -->
     <button class="game-btn"
       data-type="iframe"
-      data-encoded="aHR0cHM6Ly9jZG4uanNkZWxpdnRlY2gvZGVsdGFydW5lL21lbnUuaHRtbA==">
+      data-url="https://cdn.jsdelivr.net/gh/technonyte00/deltarune@main/menu.html">
       <div class="game-img" style="background-image:url('game6.png')"></div>
       <div class="game-title">Deltarune</div>
     </button>
@@ -249,7 +249,7 @@
   const gameButtons = document.querySelectorAll(".game-btn");
 
   searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().replace(/[\s\W]+/g, ""); // normalize
+    const query = searchInput.value.toLowerCase().replace(/[\s\W]+/g, "");
     const results = [];
 
     gameButtons.forEach(btn => {
@@ -268,12 +268,10 @@
         return;
       }
 
-      // Fuzzy regex
       const fuzzyPattern = query.split("").join(".*?");
       const regex = new RegExp(fuzzyPattern, "i");
 
       if (regex.test(normalizedTitle)) {
-        // Highlight letters
         let highlighted = "";
         let titleIndex = 0;
         let queryIndex = 0;
@@ -291,7 +289,6 @@
         highlighted += originalText.slice(titleIndex);
         titleDiv.innerHTML = highlighted;
 
-        // Priority calculation
         const words = originalText.toLowerCase().split(/\s+/);
         let priority = 0;
         words.forEach(word => {
@@ -306,7 +303,6 @@
       }
     });
 
-    // Sort and animate reordering
     results.sort((a, b) => b.priority - a.priority);
     animateGridReorder(results);
   });
@@ -316,9 +312,7 @@
     const buttons = Array.from(grid.children);
 
     const firstRects = buttons.map(btn => btn.getBoundingClientRect());
-
     results.forEach(result => grid.appendChild(result.btn));
-
     const lastRects = Array.from(grid.children).map(btn => btn.getBoundingClientRect());
 
     buttons.forEach((btn, i) => {

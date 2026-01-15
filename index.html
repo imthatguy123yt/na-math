@@ -46,51 +46,51 @@
     <!-- Row 1 -->
     <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/super-smash-flash.swf">
       <div class="game-img" style="background-image: url('game1.png');"></div>
-      <div class="game-title">Game 1</div>
+      <div class="game-title">Super Smash Flash</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game2.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game2.png');"></div>
       <div class="game-title">Game 2</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game3.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game3.png');"></div>
       <div class="game-title">Game 3</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game4.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game4.png');"></div>
       <div class="game-title">Game 4</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game5.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game5.png');"></div>
       <div class="game-title">Game 5</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game6.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game6.png');"></div>
       <div class="game-title">Game 6</div>
     </button>
 
     <!-- Row 2 -->
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game7.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game7.png');"></div>
       <div class="game-title">Game 7</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game8.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game8.png');"></div>
       <div class="game-title">Game 8</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game9.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game9.png');"></div>
       <div class="game-title">Game 9</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game10.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game10.png');"></div>
       <div class="game-title">Game 10</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game11.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game11.png');"></div>
       <div class="game-title">Game 11</div>
     </button>
-    <button class="game-btn" data-swf="https://oldflashgames.github.io/games5/game12.swf">
+    <button class="game-btn" data-swf="#">
       <div class="game-img" style="background-image: url('game12.png');"></div>
       <div class="game-title">Game 12</div>
     </button>
@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<!-- Game container -->
+<!-- Game overlay container -->
 <div id="gameContainer">
   <a href="#" class="back" onclick="closeGame()">⬅ Back to Games</a>
   <div id="gamePlayer"></div>
@@ -110,17 +110,18 @@ const ruffle = window.RufflePlayer.newest();
 const container = document.getElementById("gamePlayer");
 const overlay = document.getElementById("gameContainer");
 
-// Function to close the game
+// Close the game overlay
 function closeGame() {
-  container.innerHTML = ""; // remove previous game
+  container.innerHTML = ""; // remove current game
   overlay.style.display = "none";
 }
 
-// Add click listeners to all buttons
+// Set up click for each game button
 document.querySelectorAll(".game-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const swfUrl = btn.getAttribute("data-swf");
-    container.innerHTML = ""; // clear previous game
+    if (!swfUrl || swfUrl === "#") return alert("Game not added yet!");
+    container.innerHTML = "";
     const player = container.appendChild(ruffle.createPlayer());
     player.style.width = "100%";
     player.style.height = "100%";

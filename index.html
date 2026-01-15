@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>NA Math</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
@@ -48,7 +49,9 @@
       color: white;
     }
 
-    .game-btn:hover { background: #334155; }
+    .game-btn:hover {
+      background: #334155;
+    }
 
     .game-img {
       flex: 5;
@@ -94,7 +97,9 @@
       font-weight: bold;
     }
 
-    .back:hover { background: #334155; }
+    .back:hover {
+      background: #334155;
+    }
   </style>
 </head>
 <body>
@@ -136,6 +141,14 @@
       <div class="game-title">Bad Parenting</div>
     </button>
 
+    <!-- Football Bros -->
+    <button class="game-btn"
+      data-type="iframe"
+      data-encoded="aHR0cHM6Ly9mb290YmFsbGJyb3MuaW8=">
+      <div class="game-img" style="background-image:url('game5.png')"></div>
+      <div class="game-title">Football Bros</div>
+    </button>
+
   </div>
 </div>
 
@@ -151,7 +164,7 @@
   const container = document.getElementById("gamePlayer");
   const ruffle = window.RufflePlayer.newest();
 
-  function closeGame(){
+  function closeGame() {
     container.innerHTML = "";
     overlay.style.display = "none";
   }

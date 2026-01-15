@@ -30,13 +30,37 @@
       padding: 20px;
     }
 
+    .search-bar-container {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    #gameSearch {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      background: #1e293b;
+      color: white;
+    }
+
+    #gameSearch::placeholder {
+      color: #94a3b8;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 15px;
+      position: relative;
     }
 
     .game-btn {
+      position: relative;
+      transition: transform 0.3s ease, opacity 0.3s ease;
       height: 240px;
       background: #1e293b;
       border: none;
@@ -68,6 +92,13 @@
       font-size: 14px;
       font-weight: bold;
       text-transform: capitalize;
+    }
+
+    mark {
+      background-color: #facc15;
+      color: #000;
+      padding: 2px 4px;
+      border-radius: 3px;
     }
 
     /* Game overlay */
@@ -107,6 +138,11 @@
 <header>NA Math</header>
 
 <div class="grid-container">
+
+  <div class="search-bar-container">
+    <input type="text" id="gameSearch" placeholder="Search games..." />
+  </div>
+
   <div class="grid">
 
     <!-- Super Smash Flash -->
@@ -199,6 +235,105 @@
       overlay.style.display = "block";
     };
   });
+
+  // Search & Fuzzy Matching with Highlight & Priority & Animated Grid
+  const searchInput = document.getElementById("gameSearch");
+  const gameButtons = document.querySelectorAll(".game-btn");
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().replace(/[\s\W]+/g, ""); // normalize
+    const results = [];
+
+    gameButtons.forEach(btn => {
+      const titleDiv = btn.querySelector(".game-title");
+      const originalText = titleDiv.getAttribute("data-original") || titleDiv.textContent;
+
+      if (!titleDiv.getAttribute("data-original")) {
+        titleDiv.setAttribute("data-original", originalText);
+      }
+
+      const normalizedTitle = originalText.toLowerCase().replace(/[\s\W]+/g, "");
+
+      if (query === "") {
+        btn.style.display = "flex";
+        titleDiv.innerHTML = originalText;
+        return;
+      }
+
+      // Fuzzy regex
+      const fuzzyPattern = query.split("").join(".*?");
+      const regex = new RegExp(fuzzyPattern, "i");
+
+      if (regex.test(normalizedTitle)) {
+        // Highlight letters
+        let highlighted = "";
+        let titleIndex = 0;
+        let queryIndex = 0;
+        const titleLower = originalText.toLowerCase();
+
+        while (titleIndex < originalText.length && queryIndex < query.length) {
+          if (titleLower[titleIndex] === query[queryIndex]) {
+            highlighted += `<mark style="background:#facc15;color:#000;">${originalText[titleIndex]}</mark>`;
+            queryIndex++;
+          } else {
+            highlighted += originalText[titleIndex];
+          }
+          titleIndex++;
+        }
+        highlighted += originalText.slice(titleIndex);
+        titleDiv.innerHTML = highlighted;
+
+        // Priority calculation
+        const words = originalText.toLowerCase().split(/\s+/);
+        let priority = 0;
+        words.forEach(word => {
+          if (word.startsWith(query)) priority += 2;
+          else if (word.includes(query)) priority += 1;
+        });
+
+        results.push({ btn, priority });
+      } else {
+        btn.style.display = "none";
+        titleDiv.innerHTML = originalText;
+      }
+    });
+
+    // Sort and animate reordering
+    results.sort((a, b) => b.priority - a.priority);
+    animateGridReorder(results);
+  });
+
+  function animateGridReorder(results) {
+    const grid = document.querySelector(".grid");
+    const buttons = Array.from(grid.children);
+
+    const firstRects = buttons.map(btn => btn.getBoundingClientRect());
+
+    results.forEach(result => grid.appendChild(result.btn));
+
+    const lastRects = Array.from(grid.children).map(btn => btn.getBoundingClientRect());
+
+    buttons.forEach((btn, i) => {
+      const dx = firstRects[i].left - lastRects[i].left;
+      const dy = firstRects[i].top - lastRects[i].top;
+
+      if (dx || dy) {
+        btn.style.transform = `translate(${dx}px, ${dy}px)`;
+        requestAnimationFrame(() => {
+          btn.style.transition = "transform 0.3s ease";
+          btn.style.transform = "translate(0, 0)";
+        });
+        btn.addEventListener(
+          "transitionend",
+          () => {
+            btn.style.transition = "";
+            btn.style.transform = "";
+          },
+          { once: true }
+        );
+      }
+    });
+  }
 </script>
 
 </body>

@@ -5,47 +5,27 @@
   <title>Game 1</title>
   <meta name="robots" content="noindex, nofollow">
   <style>
-    html, body { 
-      margin: 0; 
-      padding: 0; 
-      height: 100%; 
-      overflow: hidden; 
-      background: #0f172a; 
-      color: white; 
-    }
-    a.back {
-      position: absolute; top: 10px; left: 10px;
-      display: inline-block; padding: 8px 16px;
-      background: #1e293b; color: white; text-decoration: none;
-      border-radius: 5px; z-index: 1000;
-    }
-    a.back:hover { background: #334155; }
-    #container { width: 100vw; height: 100vh; }
+    html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#0f172a; color:white; }
+    a.back { position:absolute; top:10px; left:10px; padding:8px 16px; background:#1e293b; color:white; text-decoration:none; border-radius:5px; z-index:1000; }
+    a.back:hover { background:#334155; }
+    #container { width:100vw; height:100vh; }
   </style>
 </head>
 <body>
 
-<!-- Back button to go back to main page -->
 <a href="index.html" class="back">⬅ Back to Games</a>
-
-<!-- Container where Ruffle will load the Flash game -->
 <div id="container"></div>
 
-<!-- Ruffle script -->
 <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 <script>
 window.RufflePlayer = window.RufflePlayer || {};
-window.RufflePlayer.config = {
-    autoplay: "on",
-    contextMenu: false,
-    unmuteOverlay: "hidden",
-};
+window.RufflePlayer.config = { autoplay:"on", contextMenu:false, unmuteOverlay:"hidden" };
 document.addEventListener("DOMContentLoaded", function () {
-    const swfUrl = 'https://oldflashgames.github.io/games5/super-smash-flash.swf'; // CHANGE this to your game SWF
+    const swfUrl = 'https://oldflashgames.github.io/games5/super-smash-flash.swf'; // CHANGE for each game
     let ruffle = window.RufflePlayer.newest();
     let player = Object.assign(
         document.getElementById("container").appendChild(ruffle.createPlayer()),
-        { style: 'width: 100vw; height: 100vh' }
+        { style:'width:100vw;height:100vh' }
     );
     player.load({ url: swfUrl });
 });

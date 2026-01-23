@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Game 1</title>
+<link rel="icon" href="https://www.google.com/favicon.ico">
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.top-bar {
+  height: 48px;
+  background: #020617;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-bottom: 1px solid #1e293b;
+}
+
+button {
+  background: #1e293b;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #334155;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100vh - 48px);
+  border: none;
+}
+</style>
+</head>
+
+<body>
+<div class="top-bar">
+  <button onclick="location.href='index.html'">← Back</button>
+</div>
+
+<iframe src="https://example.com"></iframe>
+</body>
+</html>
